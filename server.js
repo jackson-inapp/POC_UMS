@@ -5,7 +5,7 @@ const bodyparser = require("body-parser");
 const routes = require('./routes/routes');
 
 //database connection
-db.connect(function (err) {
+db.connect((err) => {
     if (err) {
         console.error('error connecting: ' + err);
         return;
