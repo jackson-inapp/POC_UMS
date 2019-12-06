@@ -13,7 +13,7 @@ exports.login = (req, res) => {
                         let token = jwt.sign({ username: result.rows[0].username, type: result.rows[0].type, org_id: result.rows[0].org_id },
                             config.jwtsecret,
                             {
-                                expiresIn: '24h' // expires in 24 hours
+                                expiresIn: '12h' // expires in 12 hours
                             }
                         );
                         res.status(200).json({ success: true,token });
