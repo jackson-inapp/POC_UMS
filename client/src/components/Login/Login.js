@@ -4,12 +4,10 @@ import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
 import RenderFormField from '../Form/RenderFormField'
 
-
 function LoginFormik(props) {
     
     return (
        <Container>
-
             <Form>
               
                 <RenderFormField 
