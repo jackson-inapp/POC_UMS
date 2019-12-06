@@ -4,6 +4,7 @@ import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
 
 import RenderFormField from '../Form/RenderFormField'
+import service from '../../services/api'
 
 function OrgRegister(props) {
 
@@ -14,68 +15,67 @@ function OrgRegister(props) {
 
             <Form>
 
-
                 <RenderFormField
                      type="text"
-                     name="Org_Name"
+                     name="org_Name"
                      placeholder="Enter the organisation name"
                      label="Organisation Name"
-                     istouched = {props.touched.Org_Name}
-                     errorMessage = {props.errors.Org_Name}
+                     istouched = {props.touched.org_Name}
+                     errorMessage = {props.errors.org_Name}
                 />
 
                    <RenderFormField
                      type="text"
-                     name="Addr_Line_1"
+                     name="addr_Line_1"
                      placeholder="Address Line 1"
                      label="Address Line 1"
-                     istouched = {props.touched.Addr_Line_1}
-                     errorMessage = {props.errors.Addr_Line_1}
+                     istouched = {props.touched.addr_Line_1}
+                     errorMessage = {props.errors.addr_Line_1}
                     />       
 
                   <RenderFormField
                      type="text"
-                     name="Addr_Line_2"
+                     name="addr_Line_2"
                      placeholder="Address Line 2"
                      label="Address Line 2"
-                     istouched = {props.touched.Addr_Line_2}
-                     errorMessage = {props.errors.Addr_Line_2}
+                     istouched = {props.touched.addr_Line_2}
+                     errorMessage = {props.errors.addr_Line_2}
                     /> 
 
                  <RenderFormField
                      type="text"
-                     name="Addr_Line_3"
+                     name="addr_Line_3"
                      placeholder="Address Line 3"
                      label="Address Line 3"
-                     istouched = {props.touched.Addr_Line_3}
-                     errorMessage = {props.errors.Addr_Line_3}
+                     istouched = {props.touched.addr_Line_3}
+                     errorMessage = {props.errors.addr_Line_3}
                     /> 
                 
                 <RenderFormField
                      type="text"
-                     name="ZipCode"
+                     name="zipCode"
                      placeholder="Zip Code"
                      label="Zip code"
-                     istouched = {props.touched.ZipCode}
-                     errorMessage = {props.errors.ZipCode}
+                     istouched = {props.touched.zipCode}
+                     errorMessage = {props.errors.zipCode}
                     /> 
                 
                 <RenderFormField
                      type="text"
-                     name="Phone"
+                     name="phone"
                      placeholder="Enter phone number"
-                     label="Phone Number"
-                     istouched = {props.touched.Phone}
-                     errorMessage = {props.errors.Phone}
+                     label="phone Number"
+                     istouched = {props.touched.phone}
+                     errorMessage = {props.errors.phone}
                     />
 
                 <RenderFormField
                      type="email"
-                     name="Email"
+                     name="email"
                      placeholder="Enter email id"
-                     label="Email Address"
-                     istouched = {props.touched.Email}
-                     errorMessage = {props.errors.Email}
+                     label="email Address"
+                     istouched = {props.touched.email}
+                     errorMessage = {props.errors.email}
                     /> 
                    
              <Button onSubmit={props.handleSubmit}
@@ -97,31 +97,40 @@ const FormikOrgRegister = withFormik({
     mapPropsToValues() {
 
       return{         
-        Org_Name:'',
-        Addr_Line_1:'',
-        Addr_Line_2:'',
-        Addr_Line_3:'',
-        ZipCode:'',
-        Phone:'',
-        Email:''
+        org_Name:'',
+        addr_Line_1:'',
+        addr_Line_2:'',
+        addr_Line_3:'',
+        zipCode:'',
+        phone:'',
+        email:''
     }
 },
     
     validationSchema : Yup.object().shape({
 
-        Org_Name    : Yup.string().required('*This field is required'),
-        Addr_Line_1 : Yup.string().required('*This field is required'),
-        Addr_Line_2 : Yup.string().required('*This field is required'),
-        Addr_Line_3 : Yup.string(),
-        ZipCode     : Yup.string().required('*This field is required'),
-        Phone       : Yup.string().required('*This field is required'),
-        Email       : Yup.string().email().required('*This field is required')
+        org_Name    : Yup.string().required('*This field is required'),
+        addr_Line_1 : Yup.string().required('*This field is required'),
+        addr_Line_2 : Yup.string().required('*This field is required'),
+        addr_Line_3 : Yup.string(),
+        zipCode     : Yup.string().required('*This field is required'),
+        phone       : Yup.string().required('*This field is required'),
+        email       : Yup.string().email().required('*This field is required')
 
     }),
 
     handleSubmit(values) {
 
         console.log(values)
+        service.registerOrg(values)
+        .then(result=>{
+            if(result.data.success){
+                console.log('inserted')
+            }
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     }
     
     
