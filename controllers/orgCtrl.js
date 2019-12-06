@@ -47,11 +47,11 @@ exports.viewOrg = (req, res) => {
 
 exports.viewOrgs = (req, res) => {
 
-    db.query(`SELECT * FROM tbl_organisation where disabled = false`)
+    db.query(`SELECT * FROM tbl_organisation`)
         .then(result => {
             res.status(200).json(result.rows);
         })
         .catch(e => {
-            res.status(500).json(e);
+            res.status(500).json({ success: false, error: e });
         })
 }

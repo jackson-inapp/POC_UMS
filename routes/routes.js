@@ -16,5 +16,8 @@ router.delete('/org/:id', orgCtrl.disableOrg);
 
 //User Routes
 router.post('/user',userCtrl.registerUser);
+router.get('/user',userCtrl.viewUsers);
+router.get('/user/:id',userCtrl.viewUser);
+router.delete('/user/:id',userCtrl.disableUser);
 
 module.exports = router;
