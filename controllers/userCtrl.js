@@ -2,13 +2,13 @@ const db = require('../config/database');
 const bcrypt = require('bcryptjs');
 
 exports.registerUser = (req, res) => {
-    const { username, password, type, org_id, fname, mname, lname, email, phone } = req.body;
+    const { analyst_Username, analyst_Password, type, org_id, analyst_Firstname, analyst_Middlename, analyst_Lastname, analyst_Email, analyst_Phone } = req.body;
 
-    bcrypt.hash(password, 12, (err, hash) => {
+    bcrypt.hash(analyst_Password, 12, (err, hash) => {
         if (err) {
             res.status(500).json({ success: false, err });
         }
-        db.query(`WITH user_id AS ( INSERT INTO tbl_users ( username, password, type, org_id ) VALUES ( $1, $2, $3, $4) returning id ) INSERT INTO tbl_user_data ( fname, mname, lname, email, phone, fk_userid ) VALUES ( $5, $6, $7, $8, $9, (select id from user_id) )`, [username, hash, type, org_id, fname, mname, lname, email, phone])
+        db.query(`WITH user_id AS ( INSERT INTO tbl_users ( username, password, type, org_id ) VALUES ( $1, $2, $3, $4) returning id ) INSERT INTO tbl_user_data ( fname, mname, lname, email, phone, fk_userid ) VALUES ( $5, $6, $7, $8, $9, (select id from user_id) )`, [analyst_Username, hash, type, org_id, analyst_Firstname, analyst_Middlename, analyst_Lastname, analyst_Email, analyst_Phone])
             .then(result => {
                 res.status(200).json({ success: true });
             })

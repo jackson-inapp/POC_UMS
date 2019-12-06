@@ -1,8 +1,8 @@
 const db = require('../config/database');
 
 exports.registerOrg = (req, res) => {
-    const { name, address, phone, email } = req.body
-    db.query(`INSERT INTO tbl_organisation ( name, address, phone, email ) VALUES ( $1, $2, $3, $4 )`, [name, address, phone, email])
+    const { org_Name, addr_Line_1, phone, email } = req.body
+    db.query(`INSERT INTO tbl_organisation ( name, address, phone, email ) VALUES ( $1, $2, $3, $4 )`, [org_Name, addr_Line_1, phone, email])
         .then(result => {
             res.status(200).json({ success: true });
         })
