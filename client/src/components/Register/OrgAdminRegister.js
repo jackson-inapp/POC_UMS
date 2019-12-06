@@ -2,10 +2,10 @@ import React from 'react'
 import {withFormik, Form} from 'formik'
 import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
-import RenderFormField from '../FormFieldRender/RenderFormField'
+import RenderFormField from '../Form/RenderFormField'
 
 function OrgAdminRegister(props) {
-    console.log(props)
+   
     return (
         <Container>
             <h3>Org Admin Register</h3>
@@ -121,7 +121,7 @@ const FormikOrgAdminRegister = withFormik({
     }),
 
 
-    handleSubmit(values,{setErrors,setSubmitting,resetForm}){
+    handleSubmit(values,{setSubmitting,resetForm}){
 
         // console.log(values);
 

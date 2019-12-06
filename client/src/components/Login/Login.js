@@ -2,7 +2,7 @@ import React from 'react'
 import {withFormik, Form} from 'formik'
 import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
-import RenderFormField from '../FormFieldRender/RenderFormField'
+import RenderFormField from '../Form/RenderFormField'
 
 
 function LoginFormik(props) {
