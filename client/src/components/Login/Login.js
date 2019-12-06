@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {withFormik, Form} from 'formik'
 import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
@@ -6,12 +6,16 @@ import RenderFormField from '../Form/RenderFormField'
 
 
 function LoginFormik(props) {
+
+    const [loading, setLoading] = useState(false)
+
     
     return (
-       <Container>
+       <Container onLoad={() => setLoading(true)}>
 
+            
             <Form>
-              
+                     
                 <RenderFormField 
                      type="text"
                      name="Username"
@@ -40,7 +44,9 @@ function LoginFormik(props) {
                 
             </Form>
 
-       </Container>
+            {loading && <div>Loading....</div>}
+
+       </Container> 
     )
 }
 
@@ -62,9 +68,9 @@ const Login = withFormik({
 
     handleSubmit (values,{setSubmitting,resetForm}) {
 
-        console.log(values);
+        // console.log(values);
         setSubmitting(true);
-        setTimeout(()=> { resetForm()},1000)
+        setTimeout(()=> {resetForm()},1000)
         // resetForm()
 
        
