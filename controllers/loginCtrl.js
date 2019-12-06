@@ -1,5 +1,7 @@
 const db = require('../config/database');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const config = require('../config/config');
 
 exports.login = (req, res) => {
 
@@ -7,9 +9,15 @@ exports.login = (req, res) => {
         .then(result => {
             if (result.rows.length > 0) {
                 bcrypt.compare(req.body.password, result.rows[0].password, function (err, response) {
-                    if(response === true){
-                        res.status(200).json({ success: true });
-                    }else{
+                    if (response === true) {
+                        let token = jwt.sign({ username: result.rows[0].username, type: result.rows[0].type, org_id: result.rows[0].org_id },
+                            config.jwtsecret,
+                            {
+                                expiresIn: '24h' // expires in 24 hours
+                            }
+                        );
+                        res.status(200).json({ success: true,token });
+                    } else {
                         res.status(401).json({ success: false, error: 'authentication Failed' });
                     }
                 });
