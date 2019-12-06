@@ -3,7 +3,7 @@ import {withFormik, Form} from 'formik'
 import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
 import RenderFormField from '../Form/RenderFormField'
-
+import service from '../../services/api'
 
 function LoginFormik(props) {
 
@@ -18,30 +18,30 @@ function LoginFormik(props) {
                      
                 <RenderFormField 
                      type="text"
-                     name="Username"
-                     id="Username"
+                     name="username"
+                     id="username"
                      placeholder="Enter your username/email"
-                     label="Username"
-                     istouched = {props.touched.Username}
-                     errorMessage = {props.errors.Username}
+                     label="username"
+                     istouched = {props.touched.username}
+                     errorMessage = {props.errors.username}
                 />               
 
                 <RenderFormField 
                  type="password"
-                 name="Password"
-                 id="Password"
+                 name="password"
+                 id="password"
                  placeholder="Enter your password"
                  label="Enter your password"
-                 istouched = {props.touched.Password}
-                 errorMessage = {props.errors.Password}
+                 istouched = {props.touched.password}
+                 errorMessage = {props.errors.password}
                 />
-              
-                
-                    <Button color= "primary" type="submit" onSubmit={props.handleSubmit} disabled={props.isSubmitting}>
-                        Login
+
+
+                <Button color="primary" type="submit" onSubmit={props.handleSubmit} disabled={props.isSubmitting}>
+                    Login
                     </Button>
-                
-                
+
+
             </Form>
 
             {loading && <div>Loading....</div>}
@@ -52,32 +52,40 @@ function LoginFormik(props) {
 
 const Login = withFormik({
 
-    mapPropsToValues(){
+    mapPropsToValues() {
         return {
-            Username : '',
-            Password : ''
+            username: '',
+            password: ''
         }
     },
 
-    validationSchema : Yup.object().shape({
+    validationSchema: Yup.object().shape({
 
-            Username : Yup.string().required("Username is required"),
-            Password : Yup.string().required("Password is required")
+        username: Yup.string().required("Username is required"),
+        password: Yup.string().required("Password is required")
 
     }),
 
-    handleSubmit (values,{setSubmitting,resetForm}) {
+    handleSubmit(values, { setSubmitting, resetForm }) {
 
-        // console.log(values);
-        setSubmitting(true);
-        setTimeout(()=> {resetForm()},1000)
+        console.log(values);
+        // setTimeout(() => { resetForm() }, 1000)
         // resetForm()
 
-       
-
         //API call code here
+        service.login(values)
+            .then(result => {
+                setSubmitting(true);
+                if (result.data.success) {
+                    console.log(result);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
     }
 
-})(LoginFormik) 
+})(LoginFormik)
 
 export default Login
