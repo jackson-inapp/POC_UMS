@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 // Main Router
-app.get('/api',routes);
+app.use('/api',routes);
 
 const port = process.env.PORT || 5000;
 
