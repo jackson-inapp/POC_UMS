@@ -1,20 +1,18 @@
 import jwt from 'jwt-decode';
+import { configureStore } from '../Redux/Store';
+
+const getToken = () => {
+    const state = configureStore.getState();
+    return state.login.token;
+}
 
 const decodeToken = () => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        jwt(token);
+    if (getToken()) {
+        jwt(getToken());
     } else {
         return '';
     }
 }
 
-const setToken = (token) => {
-    localStorage.setItem('token',token);
-}
 
-const getToken = () => {
-    return localStorage.getItem('token');
-}
-
-export default { decodeToken, getToken, setToken }
+export default { decodeToken, getToken }

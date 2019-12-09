@@ -1,24 +1,23 @@
 import React from 'react'
-import {BrowserRouter,Route,Switch} from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
 import Login from './containers/Login'
-import FormikOrgRegister from './components/Register/OrgRegister'
-import FormikOrgAdminRegister from './components/Register/OrgAdminRegister'
-import FormikAnalystRegister from './components/Register/AnalystRegister'
-import Header from './containers/Dashboard'
-function Routes() {
+import MainNav from './navigation/MainNav'
+
+function Routes({...props}) {
+    React.useEffect(() => {}, [props.loginState.token]);
+    const DisplayRoute = () => props.loginState.login ? <MainNav/> : <Login/>;
     return (
         <BrowserRouter>
-        
-                <Switch>
-                    <Route exact path="/" component={Header}></Route>
-                    <Route path="/login" component={Login}></Route>
-                    <Route path="/register/org" component={FormikOrgRegister}></Route>
-                    <Route path="/register/org_admin" component={FormikOrgAdminRegister}></Route>
-                    <Route path="/register/org_analyst" component={FormikAnalystRegister}></Route>
-                </Switch>
-        
+            <Switch>
+                <Route exact path="/" component={DisplayRoute}></Route>
+            </Switch>
         </BrowserRouter>
     )
 }
 
-export default Routes
+const mapPropsToState = (state) => ({
+    loginState: state
+})
+
+export default connect(mapPropsToState)(Routes)

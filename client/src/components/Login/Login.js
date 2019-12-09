@@ -4,12 +4,13 @@ import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
 import RenderFormField from '../Form/RenderFormField'
 import service from '../../services/api'
+import { login } from '../../Redux/Action'
+import { connect } from 'react-redux'
 
 function LoginFormik(props) {
 
     const [loading, setLoading] = useState(false)
 
-    
     return (
        <Container onLoad={() => setLoading(true)} className="logincomp">
             
@@ -63,18 +64,18 @@ const Login = withFormik({
 
     }),
 
-    handleSubmit(values, { setSubmitting, resetForm }) {
+    handleSubmit(values, {props, setSubmitting, resetForm }) {
 
         console.log(values);
         // setTimeout(() => { resetForm() }, 1000)
-        // resetForm()
 
         //API call code here
         service.login(values)
             .then(result => {
                 setSubmitting(true);
                 if (result.data.success) {
-                    console.log(result);
+                    props.loginMethod(result.data.token);
+                    resetForm()
                 }
             })
             .catch(err => {
@@ -85,4 +86,11 @@ const Login = withFormik({
 
 })(LoginFormik)
 
-export default Login
+const mapStateToProps = state => ({
+    loginReducer: state
+});
+const mapDispatchToProps = dispatch => ({
+    loginMethod: token => dispatch(login(token))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
