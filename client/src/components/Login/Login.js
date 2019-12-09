@@ -11,8 +11,7 @@ function LoginFormik(props) {
 
     
     return (
-       <Container onLoad={() => setLoading(true)}>
-
+       <Container onLoad={() => setLoading(true)} className="logincomp">
             
             <Form>
                      
@@ -21,7 +20,7 @@ function LoginFormik(props) {
                      name="username"
                      id="username"
                      placeholder="Enter your username/email"
-                     label="username"
+                     label="Username"
                      istouched = {props.touched.username}
                      errorMessage = {props.errors.username}
                 />               
@@ -31,16 +30,14 @@ function LoginFormik(props) {
                  name="password"
                  id="password"
                  placeholder="Enter your password"
-                 label="Enter your password"
+                 label="Password"
                  istouched = {props.touched.password}
                  errorMessage = {props.errors.password}
                 />
 
-
                 <Button color="primary" type="submit" onSubmit={props.handleSubmit} disabled={props.isSubmitting}>
                     Login
                     </Button>
-
 
             </Form>
 
