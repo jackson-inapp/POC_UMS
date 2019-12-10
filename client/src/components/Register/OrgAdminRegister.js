@@ -3,81 +3,81 @@ import {withFormik, Form} from 'formik'
 import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
 import RenderFormField from '../Form/RenderFormField'
+import service from '../../services/api'
 
 function OrgAdminRegister(props) {
    
     return (
         <Container>
-            <h3>Org Admin Register</h3>
              <Form>
              <RenderFormField
                      type="text"
-                     name="Admin_Username"
+                     name="username"
                      placeholder="Enter the Admin Username"
                      label="Username"
-                     istouched = {props.touched.Admin_Username}
-                     errorMessage = {props.errors.Admin_Username}
+                     istouched = {props.touched.username}
+                     errorMessage = {props.errors.username}
                 />
                 <RenderFormField
                      type="password"
-                     name="Admin_Password"
+                     name="password"
                      placeholder="Enter admin password"
                      label="Password"
-                     istouched = {props.touched.Admin_Password}
-                     errorMessage = {props.errors.Admin_Password}
+                     istouched = {props.touched.password}
+                     errorMessage = {props.errors.password}
                 />
                  <RenderFormField
                      type="password"
-                     name="Admin_CPassword"
+                     name="cpassword"
                      placeholder="Enter admin password"
                      label="Confirm Password"
-                     istouched = {props.touched.Admin_CPassword}
-                     errorMessage = {props.errors.Admin_CPassword}
+                     istouched = {props.touched.cpassword}
+                     errorMessage = {props.errors.cpassword}
                 />
                 <RenderFormField
                      type="text"
-                     name="Admin_Firstname"
+                     name="firstname"
                      placeholder="Enter the firstname"
                      label="Firstname"
-                     istouched = {props.touched.Admin_Firstname}
-                     errorMessage = {props.errors.Admin_Firstname}
+                     istouched = {props.touched.firstname}
+                     errorMessage = {props.errors.firstname}
                 />
                 <RenderFormField
                      type="text"
-                     name="Admin_Middlename"
+                     name="middlename"
                      placeholder="Enter the Middlename"
                      label="Middlename"
-                     istouched = {props.touched.Admin_Middlename}
-                     errorMessage = {props.errors.Admin_Middlename}
+                     istouched = {props.touched.middlename}
+                     errorMessage = {props.errors.middlename}
                 />
 
                 <RenderFormField
                      type="text"
-                     name="Admin_LastName"
+                     name="lastName"
                      placeholder="Enter the lastname"
                      label="Lastname"
-                     istouched = {props.touched.Admin_LastName}
-                     errorMessage = {props.errors.Admin_LastName}
+                     istouched = {props.touched.lastName}
+                     errorMessage = {props.errors.lastName}
                 />
 
                 <RenderFormField
                      type="email"
-                     name="Admin_Email"
+                     name="email"
                      placeholder="Enter the email"
                      label="Email"
-                     istouched = {props.touched.Admin_Email}
-                     errorMessage = {props.errors.Admin_Email}
+                     istouched = {props.touched.email}
+                     errorMessage = {props.errors.email}
                 />
 
                 <RenderFormField
                      type="text"
-                     name="Admin_Phone"
+                     name="phone"
                      placeholder="Enter the phone number"
                      label="Phone"
-                     istouched = {props.touched.Admin_Phone}
-                     errorMessage = {props.errors.Admin_Phone}
+                     istouched = {props.touched.phone}
+                     errorMessage = {props.errors.phone}
                 />
-
+                { }
 
                 <Button
                 type="submit" 
@@ -96,28 +96,29 @@ const FormikOrgAdminRegister = withFormik({
     mapPropsToValues () {
 
         return {
-             Admin_Username     :'',
-             Admin_Password     :'',
-             Admin_CPassword    :'',
-             Admin_Firstname    :'',
-             Admin_Middlename   :'',
-             Admin_LastName     :'',
-             Admin_Email        :'',
-             Admin_Phone        :''
+             username     :'',
+             password     :'',
+             cpassword    :'',
+             firstname    :'',
+             middlename   :'',
+             lastName     :'',
+             email        :'',
+             phone        :'', 
+
          }
       
     },
 
     validationSchema : Yup.object().shape({
 
-        Admin_Username     :Yup.string().required('*This field is required'),
-        Admin_Password     :Yup.string().required('*This field is required'),
-        Admin_CPassword    :Yup.string().required('*This field is required').test('Password Check','Password does not match',function(value){return this.parent.Admin_Password===value}), 
-        Admin_Firstname    :Yup.string().required('*This field is required'),
-        Admin_Middlename   :Yup.string(),
-        Admin_LastName     :Yup.string().required('*This field is required'),
-        Admin_Email        :Yup.string().email('Please enter a valid Email').required('*This field is required'),
-        Admin_Phone        :Yup.string().required('*This field is required').test('Phone Number test','Please enter a valid phone number',function(value){return /^\d+$/.test(value)})
+        username     :Yup.string().required('*This field is required'),
+        password     :Yup.string().required('*This field is required'),
+        cpassword    :Yup.string().required('*This field is required').test('Password Check','Password does not match',function(value){return this.parent.password===value}), 
+        firstname    :Yup.string().required('*This field is required'),
+        middlename   :Yup.string(),
+        lastName     :Yup.string().required('*This field is required'),
+        email        :Yup.string().email('Please enter a valid Email').required('*This field is required'),
+        phone        :Yup.string().required('*This field is required').test('Phone Number test','Please enter a valid phone number',function(value){return /^\d+$/.test(value)})
     }),
 
 
@@ -126,8 +127,18 @@ const FormikOrgAdminRegister = withFormik({
         // console.log(values);
 
         setSubmitting(true);
-        setTimeout(()=> { resetForm()},1000)
-        //API call to submit values. Avoid field Admin_CPassword
+        console.log(values);
+        service.registerUser({ ...values, type: 'admin' })
+            .then(result => {
+                if (result.data.success) {
+                    console.log('inserted')
+                    setTimeout(()=> { resetForm()},1000)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        //API call to submit values. Avoid field cpassword
 
      }
 

@@ -10,7 +10,7 @@ function Routes({...props}) {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={DisplayRoute}></Route>
+                <Route path="/" component={DisplayRoute}></Route>
             </Switch>
         </BrowserRouter>
     )

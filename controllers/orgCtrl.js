@@ -55,3 +55,23 @@ exports.viewOrgs = (req, res) => {
             res.status(500).json({ success: false, error: e });
         })
 }
+
+exports.orgPagination = ( req, res) =>{
+    const page = parseInt( req.query.page );
+    const per_page = parseInt( req.query.per_page );
+    db.query(`SELECT * FROM tbl_organisation LIMIT ${per_page} OFFSET ${page}`)
+    .then(result => {
+        db.query(`SELECT count( * ) FROM tbl_organisation`)
+        .then((resp)=>{
+            res.status(200).json({data: result.rows, count: resp.rows[0].count});
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({ success: false, err: e });
+        })
+    })
+    .catch(e => {
+        console.log(e);
+        res.status(500).json({ success: false, err: e });
+    })
+}

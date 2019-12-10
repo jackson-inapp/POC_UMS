@@ -9,15 +9,19 @@ const auth = require('../middlewares/jwtCheck')
 router.post('/login',loginCtrl.login);
 
 //organisation routes
+
+router.get('/org/pagination', auth.checkToken, orgCtrl.orgPagination);
 router.get('/org/:id', auth.checkToken, orgCtrl.viewOrg);
 router.get('/org', auth.checkToken, orgCtrl.viewOrgs);
 router.post('/org', auth.checkToken, orgCtrl.registerOrg);
 router.patch('/org/:id', auth.checkToken, orgCtrl.updateOrg);
 router.delete('/org/:id', auth.checkToken, orgCtrl.disableOrg);
 
+
 //User Routes
 router.post('/user', auth.checkToken, userCtrl.registerUser);
-router.get('/user', auth.checkToken, userCtrl.viewUsers);
+router.get('/users/:type', auth.checkToken, userCtrl.viewUsers);
+router.get('/user/pagination/:type', auth.checkToken, userCtrl.AnalystPagination);
 router.get('/user/:id', auth.checkToken, userCtrl.viewUser);
 router.delete('/user/:id', auth.checkToken, userCtrl.disableUser);
 

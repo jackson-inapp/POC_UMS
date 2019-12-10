@@ -24,7 +24,7 @@ const Header = (props) => {
         <NavbarBrand href="/">UMS</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
+          {/* <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink href="/components/">Components</NavLink>
             </NavItem>
@@ -45,7 +45,7 @@ const Header = (props) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          {/* <NavbarText>Simple Text</NavbarText> */}
+          <NavbarText>Simple Text</NavbarText> */}
         </Collapse>
       </Navbar>
     </div>

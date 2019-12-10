@@ -11,8 +11,6 @@ function OrgRegister(props) {
     return (
         <Container>
 
-            <h3>Register Organisation</h3>
-
             <Form>
 
                 <RenderFormField

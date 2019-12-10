@@ -7,7 +7,7 @@ export default function RegOrgAdmin() {
         <div>
             <DashboardHOC>
                 <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 className="h2">Register Oranisation admin</h1>
+                    <h1 className="h2">Register Organisation admin</h1>
                 </div>
                 <OrgAdminRegister/>
             </DashboardHOC>

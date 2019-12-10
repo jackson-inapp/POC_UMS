@@ -8,9 +8,9 @@ export default function SuperAdminNav() {
     return (
         <BrowserRouter>
              <Switch>
-                <Route path="/" component={Dashboard}></Route>
-                <Route path="/reg-admin" component={RegOrgAdmin}></Route>
-                <Route path="/reg-organisation" component={RegOrganisation}></Route>
+                <Route path="/reg-organisation" exact component={RegOrganisation}></Route>
+                <Route path="/reg-admin" exact component={RegOrgAdmin}></Route>
+                <Route exact path="/" component={Dashboard}></Route>
             </Switch>
         </BrowserRouter>
     )

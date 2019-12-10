@@ -75,6 +75,8 @@ const Login = withFormik({
                 setSubmitting(true);
                 if (result.data.success) {
                     props.loginMethod(result.data.token);
+                }else{
+                    console.log('Login Unsuccessful')
                     resetForm()
                 }
             })
