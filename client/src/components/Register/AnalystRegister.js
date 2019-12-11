@@ -5,7 +5,6 @@ import * as Yup from 'yup'
 import service from '../../services/api'
 
 function AnalystRegister(props) {
-    console.log(props);
 
     const analystForm = [
         {

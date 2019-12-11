@@ -5,7 +5,6 @@ import Loader from './components/loader'
 import Routes from './routes';
 
 function App(props) {
-  console.log(props)
   return (
     <>
       <Loader loading={props.loader.loading} />
