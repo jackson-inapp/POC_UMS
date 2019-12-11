@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import services from '../../services/api';
+import { NavLink } from 'react-router-dom';
+
 
 const columns = [
     {
@@ -41,7 +43,7 @@ const columns = [
     {
         name: 'Action',
         button: true,
-        cell: row => <a href={row.id} rel="noopener noreferrer">View</a>,
+    cell: row => <NavLink to={row.id} rel="noopener noreferrer">View</NavLink>,
     },
 ];
 

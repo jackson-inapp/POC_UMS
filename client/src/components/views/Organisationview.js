@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import services from '../../services/api';
+import { NavLink } from 'react-router-dom';
 
 const columns = [
     {
@@ -9,18 +10,13 @@ const columns = [
         sortable: true,
     },
     {
-        name: 'First Name',
-        selector: 'fname',
+        name: 'Name',
+        selector: 'name',
         sortable: false,
     },
     {
-        name: 'Middle Name',
-        selector: 'mname',
-        sortable: false,
-    },
-    {
-        name: 'Last Name',
-        selector: 'lname',
+        name: 'Address',
+        selector: 'address',
         sortable: false,
     },
     {
@@ -36,7 +32,7 @@ const columns = [
     {
         name: 'Action',
         button: true,
-        cell: row => <a href={row.id} rel="noopener noreferrer">View</a>,
+        cell: row => <NavLink to={row.id} rel="noopener noreferrer">View</NavLink>,
     },
 ];
 
@@ -70,7 +66,7 @@ const Organisationview = () => {
     };
 
     useEffect(() => {
-        fetchUsers(0);
+        fetchUsers(1);
     }, []);
 
     return (

@@ -1,6 +1,7 @@
 import {
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  LOADER
 } from "./type";
 
 export const login = token => ({
@@ -10,4 +11,9 @@ export const login = token => ({
 
 export const logout = () => ({
   type: LOGOUT
+});
+
+export const loader = condition => ({
+  type: LOADER,
+  payload: condition
 });

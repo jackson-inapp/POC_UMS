@@ -12,7 +12,7 @@ function sidebar(props) {
                     <div className="sidebar-sticky">
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <NavLink to="/" className="nav-link" activeClassName="selected">
+                                <NavLink exact to="/" className="nav-link" activeClassName="selected">
                                     Dashboard
                                 </NavLink>
                             </li>
@@ -20,19 +20,28 @@ function sidebar(props) {
                                 <NavLink to="/reg-organisation" className="nav-link" activeClassName="selected">
                                     Add Organisation
                                 </NavLink>
+                                <NavLink to="/view-organisation" className="nav-link" activeClassName="selected">
+                                    View Organisations
+                                </NavLink>
                             </li>}
                             {((props.loginState.userType === 'super') || (props.loginState.userType === 'admin')) && <li className="nav-item">
                                 <NavLink to="/reg-admin" className="nav-link" activeClassName="selected">
                                     Add Organisation Admin
+                                </NavLink>
+                                <NavLink to="/view-admin" className="nav-link" activeClassName="selected">
+                                    View Admins
                                 </NavLink>
                             </li>}
                             {(props.loginState.userType === 'admin') && <li className="nav-item">
                                 <NavLink to="/reg-analyst" className="nav-link" activeClassName="selected">
                                     Add Analyst
                                 </NavLink>
+                                <NavLink to="/view-analyst" className="nav-link" activeClassName="selected">
+                                    View Analysts
+                                </NavLink>
                             </li>}
                             <li className="nav-item" onClick={props.logOutMethod}>
-                                <NavLink to="#" className="nav-link" activeClassName="selected">
+                                <NavLink to="#" className="nav-link" >
                                     LogOut
                                 </NavLink>
                             </li>

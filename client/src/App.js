@@ -1,13 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Loader from './components/loader'
 
 import Routes from './routes';
 
-function App() {
+function App(props) {
+  console.log(props)
   return (
-
-    <Routes />
-
+    <>
+      <Loader loading={props.loader.loading} />
+      <Routes />
+    </>
   );
 }
 
-export default App;
+const mapStateToProps = ( state ) =>({
+  loader: state.loader
+})
+
+export default connect(mapStateToProps)(App);

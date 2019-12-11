@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
 import services from '../../services/api';
+import { NavLink } from 'react-router-dom';
 
 const columns = [
     {
@@ -46,7 +47,7 @@ const columns = [
     {
         name: 'Action',
         button: true,
-        cell: row => <a href={row.id} rel="noopener noreferrer">View</a>,
+        cell: row => <NavLink to={row.id} rel="noopener noreferrer">View</NavLink>,
     },
 ];
 
@@ -54,7 +55,7 @@ const ViewAnalyst = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [totalRows, setTotalRows] = useState(0);
-    const [perPage, setPerPage] = useState(15);
+    const [perPage, setPerPage] = useState(10);
 
     const fetchUsers = async page => {
         setLoading(true);
@@ -85,7 +86,7 @@ const ViewAnalyst = () => {
 
     return (
         <DataTable
-            title="Analyst"
+            title="All Analyst"
             columns={columns}
             data={data}
             progressPending={loading}

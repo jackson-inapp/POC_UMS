@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from "redux";
 import loginReducer from "./Reducer/LoginReducer";
+import loaderReducer from '../Redux/Reducer/LoaderReducer'
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
@@ -12,7 +13,8 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  login: loginReducer
+  login: loginReducer,
+  loader: loaderReducer
 });
 
 const pReducer = persistReducer(persistConfig, rootReducer);

@@ -19,6 +19,7 @@ const logoutHandler = () => {
     token: "",
     userType: ''
   };
+  window.location = '/';
   return newState;
 };
 
