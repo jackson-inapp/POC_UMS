@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../../Redux/Action'
+import { NavLink } from 'react-router-dom'
 
-function sidebar( props ) {
+function sidebar(props) {
     console.log(props)
     return (
         <div className="container-fluid">
@@ -11,34 +12,29 @@ function sidebar( props ) {
                     <div className="sidebar-sticky">
                         <ul className="nav flex-column">
                             <li className="nav-item">
-                                <a className="nav-link active" href="/">
-                                    <span data-feather="home"></span>
-                                    Dashboard <span className="sr-only">(current)</span>
-                                </a>
+                                <NavLink to="/" className="nav-link" activeClassName="selected">
+                                    Dashboard
+                                </NavLink>
                             </li>
-                            { (props.loginState.userType === 'super') && <li className="nav-item">
-                                <a className="nav-link" href="/reg-organisation">
-                                    <span data-feather="file"></span>
+                            {(props.loginState.userType === 'super') && <li className="nav-item">
+                                <NavLink to="/reg-organisation" className="nav-link" activeClassName="selected">
                                     Add Organisation
-                                </a>
+                                </NavLink>
                             </li>}
-                            { ((props.loginState.userType === 'super') || (props.loginState.userType === 'admin')) && <li className="nav-item">
-                                <a className="nav-link" href="/reg-admin">
-                                    <span data-feather="file"></span>
+                            {((props.loginState.userType === 'super') || (props.loginState.userType === 'admin')) && <li className="nav-item">
+                                <NavLink to="/reg-admin" className="nav-link" activeClassName="selected">
                                     Add Organisation Admin
-                                </a>
+                                </NavLink>
                             </li>}
-                            { (props.loginState.userType === 'admin')  && <li className="nav-item">
-                                <a className="nav-link" href="/reg-analyst">
-                                    <span data-feather="file"></span>
+                            {(props.loginState.userType === 'admin') && <li className="nav-item">
+                                <NavLink to="/reg-analyst" className="nav-link" activeClassName="selected">
                                     Add Analyst
-                                </a>
+                                </NavLink>
                             </li>}
                             <li className="nav-item" onClick={props.logOutMethod}>
-                                <a className="nav-link active" href="#">
-                                    <span data-feather="home"></span>
-                                    LogOut <span className="sr-only">(current)</span>
-                                </a>
+                                <NavLink to="#" className="nav-link" activeClassName="selected">
+                                    LogOut
+                                </NavLink>
                             </li>
                         </ul>
                         {/* <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -56,12 +52,12 @@ function sidebar( props ) {
         </div>
     )
 }
-const mapPropsToState = ( state ) => ({
-    loginState : state.login
+const mapPropsToState = (state) => ({
+    loginState: state.login
 })
 
 const mapDispatchToProps = dispatch => ({
     logOutMethod: () => dispatch(logout())
 });
 
-export default connect(mapPropsToState,mapDispatchToProps)(sidebar)
+export default connect(mapPropsToState, mapDispatchToProps)(sidebar)
