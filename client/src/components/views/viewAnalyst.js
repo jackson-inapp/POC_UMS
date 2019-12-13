@@ -47,7 +47,7 @@ const columns = [
     {
         name: 'Action',
         button: true,
-        cell: row => <NavLink to={row.id} rel="noopener noreferrer">View</NavLink>,
+        cell: row => <NavLink to={'view-analyst/'+row.id} rel="noopener noreferrer">View</NavLink>,
     },
 ];
 
@@ -81,7 +81,8 @@ const ViewAnalyst = () => {
     };
 
     useEffect(() => {
-        fetchUsers(0);
+        fetchUsers(1);
+        // eslint-disable-next-line
     }, []);
 
     return (

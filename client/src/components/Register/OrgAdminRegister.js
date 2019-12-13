@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams } from "react-router-dom";
 import { withFormik, Form } from 'formik'
 import { Container, Button } from 'reactstrap'
 import * as Yup from 'yup'
@@ -6,7 +7,24 @@ import RenderFormField from '../Form/RenderFormField'
 import service from '../../services/api'
 import { connect } from 'react-redux'
 
-function OrgAdminRegister(props) {
+let FormData = {};
+
+const OrgAdminRegister = (props) => {
+    let { id } = useParams();
+    console.log(id)
+    useEffect(() => {
+        if (id) {
+            service.viewUser(parseInt(id))
+                .then((result => {
+                    FormData = result.data[0];
+                    console.log(FormData);
+                }))
+                .catch((e) => {
+                    console.log(e);
+                })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
         <Container>
             <Form>
@@ -60,12 +78,12 @@ function OrgAdminRegister(props) {
                     errorMessage={props.errors.lastName}
                 />
 
-                { props.login.userType === 'super' && <RenderFormField
+                {props.login.userType === 'super' && <RenderFormField
                     type="select"
                     name="department"
                     placeholder="Select Department"
                     label="Department"
-                    options={[{id:1,name:'sadsad'}]}
+                    options={[{ id: 1, name: 'sadsad' }]}
                     istouched={props.touched.lastName}
                     errorMessage={props.errors.lastName}
                 />}
@@ -100,20 +118,21 @@ function OrgAdminRegister(props) {
     )
 }
 
+
 const FormikOrgAdminRegister = withFormik({
 
     mapPropsToValues() {
 
         return {
-            username: '',
+            username: FormData.username || '',
             password: '',
             cpassword: '',
-            firstname: '',
-            middlename: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            department: ''
+            firstname: FormData.fname || '',
+            middlename: FormData.mname || '',
+            lastName: FormData.lname || '',
+            email: FormData.email || '',
+            phone: FormData.phone || '',
+            department: FormData.department || ''
 
         }
 

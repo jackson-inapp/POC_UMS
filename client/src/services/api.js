@@ -1,5 +1,6 @@
 import axios from 'axios';
 import auth from './auth'
+import jwt from 'jwt-decode'
 
 const baseurl = 'http://localhost:5000';
 
@@ -113,5 +114,15 @@ const viewanalystPaginaion = async (type,page,perPage) => {
     })
 };
 
-export default { login, registerOrg, updateOrg, deleteOrg, registerUser, deleteUser, viewUsers, viewUser, vieworgs, vieworg,ViewOrgPagination, viewanalystPaginaion}
+const changepwd = (oldpwd, newpwd) => {
+    let username = jwt(auth.getToken()).username;
+    return axios({
+        method: 'patch',
+        url: `${baseurl}/api/user/changepwd`,
+        data: {oldpwd,newpwd,username},
+        headers: setheader()
+    })
+}
+
+export default { login, registerOrg, updateOrg, deleteOrg, registerUser, deleteUser, viewUsers, viewUser, vieworgs, vieworg,ViewOrgPagination, viewanalystPaginaion, changepwd}
 

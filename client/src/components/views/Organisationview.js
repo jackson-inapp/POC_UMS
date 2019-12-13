@@ -67,6 +67,7 @@ const Organisationview = () => {
 
     useEffect(() => {
         fetchUsers(1);
+        // eslint-disable-next-line
     }, []);
 
     return (

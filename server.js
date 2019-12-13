@@ -4,6 +4,7 @@ const db = require('./config/database');
 const bodyparser = require("body-parser");
 const routes = require('./routes/routes');
 const cors = require('cors')
+const morgan = require("morgan");
 
 //database connection
 db.connect((err) => {
@@ -19,6 +20,7 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 // Main Router
+app.use(morgan("tiny"));
 app.use('/api',cors(),routes);
 
 const port = process.env.PORT || 5000;

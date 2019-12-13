@@ -59,7 +59,8 @@ exports.viewOrgs = (req, res) => {
 exports.orgPagination = ( req, res) =>{
     const page = parseInt( req.query.page );
     const per_page = parseInt( req.query.per_page );
-    db.query(`SELECT * FROM tbl_organisation LIMIT ${per_page} OFFSET ${page}`)
+    let offset = (page - 1) * per_page ;
+    db.query(`SELECT * FROM tbl_organisation LIMIT ${per_page} OFFSET ${offset}`)
     .then(result => {
         db.query(`SELECT count( * ) FROM tbl_organisation`)
         .then((resp)=>{

@@ -60,10 +60,42 @@ exports.viewUsers = (req, res) => {
         })
 }
 
+exports.ChangePwd = (req,res) => {
+    db.query(`SELECT * FROM tbl_users where username = $1`, [req.body.username])
+        .then(result => {
+            if (result.rows.length > 0) {
+                bcrypt.compare(req.body.oldpwd, result.rows[0].password, function (err, response) {
+                    if (response === true) {
+                        bcrypt.hash(req.body.newpwd, 12, (err, hash) => {
+                            if (err) {
+                                res.status(500).json({ success: false, err });
+                            }
+                            db.query(`UPDATE tbl_users SET password = $1 WHERE username = $2`,[hash, req.body.username])
+                            .then(val=>{
+                                res.status(200).json({succes: true});
+                            })
+                            .catch(e => {
+                                console.log(e);
+                                res.status(500).json({ success: false, err: e });
+                            })
+                        });
+
+                    } else {
+                        res.status(401).json({ success: false, error: 'Password Incorrect' });
+                    }
+                });
+            } else {
+                res.status(401).json({ success: false, error: 'Password Incorrect' });
+            }
+        })
+        .catch(e => res.status(401).json({ success: false, error: e }))
+}
+
 exports.AnalystPagination = (req, res) => {
     const page = parseInt( req.query.page );
     const per_page = parseInt( req.query.per_page );
-    db.query(`SELECT * FROM tbl_users FULL OUTER JOIN tbl_user_data on tbl_users.id = tbl_user_data.fk_userid WHERE tbl_users.type = '${req.params.type}' ORDER BY tbl_users.id LIMIT ${per_page} OFFSET ${page}`)
+    let offset = (page-1) * per_page;
+    db.query(`SELECT * FROM tbl_users FULL OUTER JOIN tbl_user_data on tbl_users.id = tbl_user_data.fk_userid WHERE tbl_users.type = '${req.params.type}' ORDER BY tbl_users.id LIMIT ${per_page} OFFSET ${offset}`)
     .then(result => {
         db.query(`SELECT count( * ) FROM tbl_users FULL OUTER JOIN tbl_user_data on tbl_users.id = tbl_user_data.fk_userid WHERE tbl_users.type = '${req.params.type}'`)
         .then((resp)=>{

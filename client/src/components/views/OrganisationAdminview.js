@@ -77,7 +77,8 @@ const OrganisationAdminview = () => {
     };
 
     useEffect(() => {
-        fetchUsers(0);
+        fetchUsers(1);
+        // eslint-disable-next-line
     }, []);
 
     return (

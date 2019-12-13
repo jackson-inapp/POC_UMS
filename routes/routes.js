@@ -19,6 +19,7 @@ router.delete('/org/:id', auth.checkToken, orgCtrl.disableOrg);
 
 
 //User Routes
+router.patch('/user/changepwd', auth.checkToken, userCtrl.ChangePwd);
 router.post('/user', auth.checkToken, userCtrl.registerUser);
 router.get('/users/:type', auth.checkToken, userCtrl.viewUsers);
 router.get('/user/pagination/:type', auth.checkToken, userCtrl.AnalystPagination);

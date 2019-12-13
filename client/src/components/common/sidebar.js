@@ -40,6 +40,11 @@ function sidebar(props) {
                                     View Analysts
                                 </NavLink>
                             </li>}
+                            <li className="nav-item">
+                                <NavLink to="/chg-pwd" className="nav-link" >
+                                    Change Password
+                                </NavLink>
+                            </li>
                             <li className="nav-item" onClick={props.logOutMethod}>
                                 <NavLink to="#" className="nav-link" >
                                     LogOut

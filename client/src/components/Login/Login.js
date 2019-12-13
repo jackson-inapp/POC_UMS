@@ -1,18 +1,17 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {withFormik, Form} from 'formik'
 import {Container,Button} from 'reactstrap'
 import * as Yup from 'yup'
 import RenderFormField from '../Form/RenderFormField'
 import service from '../../services/api'
-import { login } from '../../Redux/Action'
+import { login,loader } from '../../Redux/Action'
 import { connect } from 'react-redux'
 
 function LoginFormik(props) {
 
-    const [loading, setLoading] = useState(false)
 
     return (
-       <Container onLoad={() => setLoading(true)} className="logincomp">
+       <Container  className="logincomp">
             
             <Form>
                      
@@ -42,7 +41,6 @@ function LoginFormik(props) {
 
             </Form>
 
-            {loading && <div>Loading....</div>}
 
        </Container> 
     )
@@ -68,10 +66,11 @@ const Login = withFormik({
 
         console.log(values);
         // setTimeout(() => { resetForm() }, 1000)
-
+        props.setLoading(true);
         //API call code here
         service.login(values)
             .then(result => {
+                props.setLoading(false);
                 setSubmitting(true);
                 if (result.data.success) {
                     props.loginMethod(result.data.token);
@@ -92,7 +91,8 @@ const mapStateToProps = state => ({
     loginReducer: state
 });
 const mapDispatchToProps = dispatch => ({
-    loginMethod: token => dispatch(login(token))
+    loginMethod: token => dispatch(login(token)),
+    setLoading: (condition) => dispatch(loader(condition))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
